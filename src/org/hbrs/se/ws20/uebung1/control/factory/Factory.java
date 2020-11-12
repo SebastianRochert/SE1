@@ -1,6 +1,6 @@
-package org.hbrs.se.ws20.uebung1.control.factory;
+package src.org.hbrs.se.ws20.uebung1.control.factory;
 
-import org.hbrs.se.ws20.uebung1.control.GermanTranslator;
+import src.org.hbrs.se.ws20.uebung1.control.GermanTranslator;
 
 /**
  * Factory zur Erzeugung von konsistenten Translator-Objekten

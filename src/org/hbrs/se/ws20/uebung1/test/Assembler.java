@@ -1,8 +1,8 @@
-package org.hbrs.se.ws20.uebung1.test;
+package src.org.hbrs.se.ws20.uebung1.test;
 
-import org.hbrs.se.ws20.uebung1.control.GermanTranslator;
-import org.hbrs.se.ws20.uebung1.control.Translator;
-import org.hbrs.se.ws20.uebung1.view.Client;
+import src.org.hbrs.se.ws20.uebung1.control.GermanTranslator;
+import src.org.hbrs.se.ws20.uebung1.control.Translator;
+import src.org.hbrs.se.ws20.uebung1.view.Client;
 
 public class Assembler {
     private Client client = null;

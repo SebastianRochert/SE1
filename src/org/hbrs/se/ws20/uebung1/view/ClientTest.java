@@ -1,7 +1,7 @@
-package org.hbrs.se.ws20.uebung1.view;
+package src.org.hbrs.se.ws20.uebung1.view;
 
-import org.hbrs.se.ws20.uebung1.control.factory.Factory;
-import org.hbrs.se.ws20.uebung1.view.Client;
+import src.org.hbrs.se.ws20.uebung1.control.factory.Factory;
+import src.org.hbrs.se.ws20.uebung1.view.Client;
 
 public class ClientTest {
     private static Client client = null;
@@ -24,5 +24,4 @@ public class ClientTest {
         ClientTest cs = new ClientTest();
         ClientTest.test();
     }
-
 }

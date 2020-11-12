@@ -1,4 +1,4 @@
-package org.hbrs.se.ws20.uebung1.control;
+package src.org.hbrs.se.ws20.uebung1.control;
 
 /**
  * Das Translator Interface. Die Anzahl der Methoden ist fix

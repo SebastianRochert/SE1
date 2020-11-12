@@ -1,9 +1,9 @@
-package org.hbrs.se.ws20.uebung1.test;
+package src.org.hbrs.se.ws20.uebung1.test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.hbrs.se.ws20.uebung1.control.Translator;
-import org.hbrs.se.ws20.uebung1.control.factory.Factory;
-import org.hbrs.se.ws20.uebung1.view.ClientTest;
+import src.org.hbrs.se.ws20.uebung1.control.Translator;
+import src.org.hbrs.se.ws20.uebung1.control.factory.Factory;
+import src.org.hbrs.se.ws20.uebung1.view.ClientTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
