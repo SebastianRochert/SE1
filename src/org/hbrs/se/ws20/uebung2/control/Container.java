@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Container {
 
-    public List<Member> aList = new ArrayList<Member>();
+    public List<Member> aList = new ArrayList<>();
 
     public void addMember(Member member) throws ContainerException {
-        /**
-         * ist das übergebene Member Objekt bereits in dem Container vorhanden? (Überprüfen)
-         * wenn ja, dann throw Exception vom Typ ContainerException
+        /*
+          ist das übergebene Member Objekt bereits in dem Container vorhanden? (Überprüfen)
+          wenn ja, dann throw Exception vom Typ ContainerException
          */
         if (contains(member)) {
             ContainerException exception = new ContainerException();
@@ -23,7 +23,7 @@ public class Container {
     public boolean contains(Member member) {
         Integer id = member.getID();
         for(Member x : aList) {
-            if(member.getID().intValue() == x.getID().intValue()){
+            if(member.getID().equals(x.getID())){
                 return true;
             }
         }
@@ -42,7 +42,7 @@ public class Container {
 
     private Member getMember(Integer id) {
         for(Member x:aList) {
-            if(id == x.getID().intValue()) {
+            if(id.equals(x.getID())){
                 return x;
             }
         }
@@ -50,7 +50,10 @@ public class Container {
     }
 
     public void dump() {
-
+        System.out.println("Alle IDs der aktuell abgespeicherten Objekte im Container:");
+        for(Member x:aList){
+            System.out.println(x.toString());
+        }
     }
 
     public int size() {
