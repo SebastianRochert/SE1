@@ -50,9 +50,9 @@ public class Container {
     }
 
     public void dump() {
-        System.out.println("Alle IDs der aktuell abgespeicherten Objekte im Container:");
+        System.out.print("Alle IDs der aktuell abgespeicherten Objekte im Container:\n");
         for(Member x:aList){
-            System.out.println(x.toString());
+            System.out.print(x.toString());
         }
     }
 

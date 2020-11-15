@@ -15,6 +15,6 @@ public class MemberDef implements Member{
 
     @Override
     public String toString(){
-        return "Member (ID = " + id + ")";
+        return "Member (ID = " + id + ")\n";
     }
 }
