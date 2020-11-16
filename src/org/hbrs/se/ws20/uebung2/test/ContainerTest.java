@@ -51,19 +51,19 @@ public class ContainerTest {
         Die Methoden contains() und getMember() werden in den Methoden addMember() und deleteMember() verwenden und mit dem Testen dieser Methoden abgedeckt
          */
 
-        assertEquals(con.size(), 0, "Fehler, neuer Container sollte leer (0) sein!");
+        assertEquals(0, con.size(), "Fehler, neuer Container sollte leer (0) sein!");
         con.addMember(x);
         con.addMember(y);
         con.addMember(z);
-        assertEquals(con.size(), 3, "Size() sollte nach einfügen eines Objektes '3' ergeben!");
+        assertEquals(3, con.size(), "Size() sollte nach einfügen eines Objektes '3' ergeben!");
 
         //Test von deleteMember() und size()
-        assertEquals(con.deleteMember(1), "Der Member mit der ID: 1 wurde erfolgreich gelöscht!", "Rückgabe der deleteMember Methoe war falsch!");
-        assertEquals(con.size(), 2, "Size() sollte nach löschen eines Objektes '2' ergeben!");
-        assertEquals(con.deleteMember(10), "Member ist nicht in der Liste enthalten!", "Löschen eines nicht vorhanden Member Objekts hat nicht das gewünschte Ergebnis geliefert!" );
-        assertEquals(con.size(), 2, "Size() sollte nach löschen eines Objektes '2' ergeben!");
+        assertEquals("Der Member mit der ID: 1 wurde erfolgreich gelöscht!", con.deleteMember(1), "Rückgabe der deleteMember Methoe war falsch!");
+        assertEquals(2, con.size(),"Size() sollte nach löschen eines Objektes '2' ergeben!");
+        assertEquals("Member ist nicht in der Liste enthalten!", con.deleteMember(10),"Löschen eines nicht vorhanden Member Objekts hat nicht das gewünschte Ergebnis geliefert!" );
+        assertEquals(2, con.size(), "Size() sollte nach löschen eines Objektes '2' ergeben!");
         con.deleteMember(3);
-        assertEquals(con.size(), 1, "Size() sollte nach löschen eines Objektes '1' ergeben!");
+        assertEquals(1, con.size(), "Size() sollte nach löschen eines Objektes '1' ergeben!");
     }
 
     @Test
