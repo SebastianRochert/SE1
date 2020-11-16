@@ -20,7 +20,7 @@ public class Container {
         aList.add(member);
     }
 
-    public boolean contains(Member member) {
+    public boolean contains(Member member) { //Prüft ob die Liste aList den übergebenen Member beinhaltet und gibt einen Boolean zurück
         Integer id = member.getID();
         for(Member x : aList) {
             if(member.getID().equals(x.getID())){
@@ -31,6 +31,12 @@ public class Container {
     }
 
     public String deleteMember(Integer id) {
+        /*
+        Welche Nachteile ergeben sich aus ihrer Sicht für ein solchen Fehlerhandling gegenüber einer Lösung mit Exceptions? Kurzes Statement!
+            Exception ermöglichen es uns Fehler und Abstürze im Programmablauf sicher zu behandeln. Exceptions werden weiter gegeben bis Sie von uns behandelt oder ausgegeben werden.
+            In diesem Fall wird keine Exception(Fehlermeldung) erzeugt, sondern lediglich ein String zurückgegeben. Das heißt auch das das Programm weiter läuft obwohl möglicherweise
+            ein Kritischer Fehler aufgetaucht ist.
+         */
         Member x = getMember(id);
         if(x == null) {
             return "Member ist nicht in der Liste enthalten!";
@@ -40,7 +46,7 @@ public class Container {
         }
     }
 
-    private Member getMember(Integer id) {
+    private Member getMember(Integer id) { //Gibt den Member mit der übergebenen ID zurück oder wenn er nicht vorhanden ist null.
         for(Member x:aList) {
             if(id.equals(x.getID())){
                 return x;
@@ -49,14 +55,14 @@ public class Container {
         return null;
     }
 
-    public void dump() {
+    public void dump() { //Ausgabe aller IDs der vorhandenen Member in der Console
         System.out.print("Alle IDs der aktuell abgespeicherten Objekte im Container:\n");
         for(Member x:aList){
             System.out.print(x.toString());
         }
     }
 
-    public int size() {
+    public int size() { //Anzahl der Member in aList
         return aList.size();
     }
 }
