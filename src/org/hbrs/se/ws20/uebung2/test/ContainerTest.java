@@ -46,7 +46,11 @@ public class ContainerTest {
 
     @Test
     void testContainer() throws ContainerException{
-        //test von size() und addMember()
+        /*
+        test von size() und addMember()
+        Die Methoden contains() und getMember() werden in den Methoden addMember() und deleteMember() verwenden und mit dem Testen dieser Methoden abgedeckt
+         */
+
         assertEquals(con.size(), 0, "Fehler, neuer Container sollte leer (0) sein!");
         con.addMember(x);
         con.addMember(y);
@@ -64,7 +68,7 @@ public class ContainerTest {
 
     @Test
     void testAddMemberException() throws ContainerException{
-        //Prüfen ob eine CointainerException geworfen wird wenn ein Duplicat hinzugefügt werden soll
+        //Prüfen ob eine CointainerException geworfen wird wenn ein Duplicat hinzugefügt werden soll über addMember
         con.addMember(x);
         assertThrows(ContainerException.class, () -> con.addMember(x), "Es wurde keine Exception geworfen als ein Duplikat eingefügt wurde!");
     }
@@ -75,7 +79,6 @@ public class ContainerTest {
         con.addMember(x);
         con.addMember(y);
         con.addMember(z);
-
         con.dump();
         assertEquals("Alle IDs der aktuell abgespeicherten Objekte im Container:\nMember (ID = 1)\nMember (ID = 2)\nMember (ID = 3)\n", outContent.toString(), "Die Ausgabe der dump() Methode ist falsch!");
     }
