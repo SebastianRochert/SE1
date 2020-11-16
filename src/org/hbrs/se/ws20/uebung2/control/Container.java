@@ -20,7 +20,7 @@ public class Container {
         aList.add(member);
     }
 
-    public boolean contains(Member member) { //Prüft ob die Liste aList den übergebenen Member beinhaltet und gibt einen Boolean zurück
+    private boolean contains(Member member) { //Prüft ob die Liste aList den übergebenen Member beinhaltet und gibt einen Boolean zurück
         Integer id = member.getID();
         for(Member x : aList) {
             if(member.getID().equals(x.getID())){
