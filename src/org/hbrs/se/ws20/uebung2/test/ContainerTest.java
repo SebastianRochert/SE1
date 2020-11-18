@@ -50,7 +50,7 @@ public class ContainerTest {
         test von size() und addMember()
         Die Methoden contains() und getMember() werden in den Methoden addMember() und deleteMember() verwenden und mit dem Testen dieser Methoden abgedeckt
          */
-        try {
+        try { //Immer Try/Catch benutzen
             assertEquals(0, con.size(), "Fehler, neuer Container sollte leer (0) sein!");
             con.addMember(x);
             con.addMember(y);
