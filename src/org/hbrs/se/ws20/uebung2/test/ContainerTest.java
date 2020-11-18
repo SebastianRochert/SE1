@@ -45,19 +45,30 @@ public class ContainerTest {
     }
 
     @Test
-    void testContainer() throws ContainerException{
+    void testContainer() {
         /*
         test von size() und addMember()
         Die Methoden contains() und getMember() werden in den Methoden addMember() und deleteMember() verwenden und mit dem Testen dieser Methoden abgedeckt
          */
+        try {
+            assertEquals(0, con.size(), "Fehler, neuer Container sollte leer (0) sein!");
+            con.addMember(x);
+            con.addMember(y);
+            con.addMember(z);
+            assertEquals(3, con.size(), "Size() sollte nach einfügen eines Objektes '3' ergeben!");
+            con.addMember(a);
+            assertEquals(4, con.size(), "Size() sollte nach einfügen eines Objektes '3' ergeben!");
+        } catch (ContainerException e) {
+            e.printStackTrace();
+        }
+    }
 
-        assertEquals(0, con.size(), "Fehler, neuer Container sollte leer (0) sein!");
+    @Test
+    void testContainer2() throws ContainerException {
+        //testContainer erweitert um das Ausführen der Methode deleteMember
         con.addMember(x);
         con.addMember(y);
         con.addMember(z);
-        assertEquals(3, con.size(), "Size() sollte nach einfügen eines Objektes '3' ergeben!");
-
-        //Test von deleteMember() und size()
         assertEquals("Der Member mit der ID: 1 wurde erfolgreich gelöscht!", con.deleteMember(1), "Rückgabe der deleteMember Methoe war falsch!");
         assertEquals(2, con.size(),"Size() sollte nach löschen eines Objektes '2' ergeben!");
         assertEquals("Member ist nicht in der Liste enthalten!", con.deleteMember(10),"Löschen eines nicht vorhanden Member Objekts hat nicht das gewünschte Ergebnis geliefert!" );
