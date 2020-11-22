@@ -7,6 +7,7 @@ import src.org.hbrs.se.ws20.uebung3.control.Container;
 import src.org.hbrs.se.ws20.uebung3.control.ContainerException;
 import src.org.hbrs.se.ws20.uebung3.control.Member;
 import src.org.hbrs.se.ws20.uebung3.control.MemberDef;
+import src.org.hbrs.se.ws20.uebung3.view.MemberView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -92,7 +93,7 @@ public class ContainerTest {
         con.addMember(x);
         con.addMember(y);
         con.addMember(z);
-        con.dump();
+        MemberView.dump(con.getCurrentList());
         assertEquals("Alle IDs der aktuell abgespeicherten Objekte im Container:\nMember (ID = 1)\nMember (ID = 2)\nMember (ID = 3)\n", outContent.toString(), "Die Ausgabe der dump() Methode ist falsch!");
     }
 
@@ -103,7 +104,7 @@ public class ContainerTest {
         con.addMember(y);
         con.addMember(z);
         con.deleteMember(3);
-        con.dump();
+        MemberView.dump(con.getCurrentList());
         assertEquals("Alle IDs der aktuell abgespeicherten Objekte im Container:\nMember (ID = 1)\nMember (ID = 2)\n", outContent.toString(), "Die Ausgabe der dump() Methode ist falsch!");
     }
 }
