@@ -84,13 +84,6 @@ public class Container {
         return aList;
     }
 
-    public void dump() { //Ausgabe aller IDs der vorhandenen Member in der Console
-        System.out.print("Alle IDs der aktuell abgespeicherten Objekte im Container:\n");
-        for(Member x:aList){
-            System.out.print(x.toString());
-        }
-    }
-
     public int size() { //Anzahl der Member in aList
         return aList.size();
     }
