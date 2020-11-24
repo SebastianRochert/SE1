@@ -1,6 +1,8 @@
 package src.org.hbrs.se.ws20.uebung3.control;
 
-public class MemberDef implements Member {
+import java.io.Serializable;
+
+public class MemberDef implements Member, Serializable {
 
     private Integer id = null;
 
