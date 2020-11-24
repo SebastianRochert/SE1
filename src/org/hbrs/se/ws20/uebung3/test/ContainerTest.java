@@ -117,21 +117,22 @@ public class ContainerTest {
         assertEquals(secondCon, con, "Es konnte ein zweiter Container erstellt werden.");
     }
 
-//    @Test
-//    void testStoreAndLoad() {
-//        try {
-//            con.addMember(x);
-//            con.addMember(y);
-//            con.addMember(z);
-//            con.store();
-//            List<Member> control = new ArrayList<Member>();
-//            control = con.getCurrentList();
-//            Container.deleteInstance();
-//            Container con2 = Container.getInstance();
+    @Test
+    void testStoreAndLoad() {
+        try {
+            con.addMember(x);
+            con.addMember(y);
+            con.addMember(z);
+            assertEquals(3, con.size(), "Size() sollte hier 3 sein!");
+            con.store();
+            List<Member> control = new ArrayList<Member>();
+            control = con.getCurrentList();
+            Container.deleteInstance();
+            Container con2 = Container.getInstance();
 //            con2.load();
 //            assertEquals(control, con2.getCurrentList(),"Bitte funktioniere!");
-//        } catch (ContainerException | PersistenceException e) {
-//            e.printStackTrace();
-//        }
-//    }
+        } catch (ContainerException | PersistenceException e) {
+            e.printStackTrace();
+        }
+    }
 }
