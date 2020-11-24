@@ -50,13 +50,15 @@ public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Me
      */
     public void save(List<Member> member) throws PersistenceException  {
         openConnection();
+
         try {
-            oos.writeObject(member);
+            for(Member x : member) {
+                oos.writeObject(x);
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            closeConnection();
         }
+        closeConnection();
     }
 
     @Override
