@@ -3,14 +3,13 @@ package src.org.hbrs.se.ws20.uebung3.control;
 import src.org.hbrs.se.ws20.uebung3.persistence.PersistenceException;
 import src.org.hbrs.se.ws20.uebung3.persistence.PersistenceStrategy;
 import src.org.hbrs.se.ws20.uebung3.persistence.PersistenceStrategyStream;
-import src.org.hbrs.se.ws20.uebung3.view.MemberView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Container {
 
-    private List<Member> aList = null;
+    private List<Member> aList;
     /*
      Es soll zur Laufzeit zugesichert werden, dass von der Klasse Container nur ein einziges Mal ein Objekt erzeugt werden kann und somit nur ein
      Objekt davon im Speicher existiert.
@@ -50,7 +49,6 @@ public class Container {
     }
 
     private boolean contains(Member member) { //Prüft ob die Liste aList den übergebenen Member beinhaltet und gibt einen Boolean zurück
-        Integer id = member.getID();
         for(Member x : aList) {
             if(member.getID().equals(x.getID())){
                 return true;
