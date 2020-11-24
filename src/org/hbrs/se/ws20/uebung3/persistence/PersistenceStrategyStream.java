@@ -23,7 +23,6 @@ public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Me
         try {
             fos = new FileOutputStream(file);
             oos = new ObjectOutputStream(fos);
-
             // Initiating the Stream (can also be moved to method openConnection()... ;-)
             fis = new FileInputStream(file);
             ois = new ObjectInputStream(fis);
@@ -50,7 +49,6 @@ public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Me
      */
     public void save(List<Member> member) throws PersistenceException  {
         openConnection();
-
         try {
             for(Member x : member) {
                 oos.writeObject(x);
@@ -58,7 +56,6 @@ public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Me
         } catch (IOException e) {
             e.printStackTrace();
         }
-        closeConnection();
     }
 
     @Override
