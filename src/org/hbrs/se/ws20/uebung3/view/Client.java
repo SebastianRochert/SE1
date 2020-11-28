@@ -6,7 +6,7 @@ import src.org.hbrs.se.ws20.uebung3.control.Member;
 import src.org.hbrs.se.ws20.uebung3.control.MemberDef;
 
 public class Client {
-    public static void main(String[] args) {
+    public static void main(String[] args) { //Auslagern in eine Main Klasse
         Container con = Container.getInstance();
 
         Client.fuellen(con);

@@ -8,15 +8,13 @@ import src.org.hbrs.se.ws20.uebung3.control.ContainerException;
 import src.org.hbrs.se.ws20.uebung3.control.Member;
 import src.org.hbrs.se.ws20.uebung3.control.MemberDef;
 import src.org.hbrs.se.ws20.uebung3.persistence.PersistenceException;
+import src.org.hbrs.se.ws20.uebung3.persistence.PersistenceStrategyStream;
 import src.org.hbrs.se.ws20.uebung3.view.MemberView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ContainerTest {
     private Member x = null;
@@ -112,27 +110,47 @@ public class ContainerTest {
     }
 
     @Test
-    void testSecondContainer() {
+    void testSecondContainer() { //Überprüfung auf Objekt-Identität (vs. Objekt-Gleichheit mit assertEquals)
         Container secondCon = Container.getInstance();
-        assertEquals(secondCon, con, "Es konnte ein zweiter Container erstellt werden.");
+        assertSame(secondCon, con);
     }
 
     @Test
     void testStoreAndLoad() {
         try {
+            con.setPss(new PersistenceStrategyStream<Member>());
             con.addMember(x);
             con.addMember(y);
             con.addMember(z);
             assertEquals(3, con.size(), "Size() sollte hier 3 sein!");
             con.store();
-            List<Member> control = new ArrayList<Member>();
-            control = con.getCurrentList();
-            Container.deleteInstance();
-            Container con2 = Container.getInstance();
-//            con2.load();
-//            assertEquals(control, con2.getCurrentList(),"Bitte funktioniere!");
+
+            con.deleteMember(1);
+            assertEquals(2 , con.size() );
+
+            con.load();
+            assertEquals( 3 , con.size() );
+
         } catch (ContainerException | PersistenceException e) {
-            e.printStackTrace();
+            System.out.println("Message: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testWrongLocationOfFile() {
+        try {
+            PersistenceStrategyStream<Member> strat = new PersistenceStrategyStream<Member>();
+
+            // FileStreams do not like directories, so try this out ;-)
+            strat.setLOCATION("/Users/Deadman/tmp");
+            con.setPss( strat );
+            con.store();
+
+        } catch (PersistenceException e) {
+            System.out.println("Message: " + e.getMessage() );
+            assertEquals( e.getMessage() , "Error in opening the connection, File could not be found!" );
+            assertEquals(  PersistenceException.ExceptionType.ConnectionNotAvailable  ,
+                    e.getExceptionTypeType() ) ;
         }
     }
 }

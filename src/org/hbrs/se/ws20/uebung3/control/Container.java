@@ -15,13 +15,21 @@ public class Container {
      Objekt davon im Speicher existiert.
      */
     private static Container instance; //instance = null
+
+
     //Objekt der Klasse PersistenceStrategyStream um die dort definierten Methoden nutzen zu können
-    private final PersistenceStrategy<Member> pss = new PersistenceStrategyStream<Member>();
+    private PersistenceStrategy pss = null;
+
+    public void setPss(PersistenceStrategy<Member> pss) {
+        this.pss = pss;
+    }
 
     private Container() {
         aList = new ArrayList<Member>();
     }
 
+    //Vorteil: Erzeugung des Objektes nur bei Bedarf
+    //Anwendungsfall für Singleton Pattern:
     public static synchronized Container getInstance() {
         if(instance == null) {
             instance = new Container();
@@ -94,10 +102,17 @@ public class Container {
     Uebung 3: Neue Methoden store() und load()
      */
     public void store() throws PersistenceException {
+        if(pss == null) {
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "No Strategy is set");
+        }
         pss.save(aList);
     }
 
     public void load() throws PersistenceException {
-        aList = pss.load();
+        if (this.pss == null) {
+            throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Strategy not initialized");
+        }
+        List<Member> liste = this.pss.load();
+        aList = liste;
     }
 }
