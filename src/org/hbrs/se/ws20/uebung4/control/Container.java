@@ -42,36 +42,36 @@ public class Container {
 
 
     //Uebung 2:
-    public void addMember(UserStory member) throws ContainerException {
+    public void addUserStory(UserStory us) throws ContainerException {
         /*
           ist das übergebene Member Objekt bereits in dem Container vorhanden? (Überprüfen)
           wenn ja, dann throw Exception vom Typ ContainerException
          */
-        if (contains(member)) {
+        if (contains(us)) {
             ContainerException exception = new ContainerException();
-            exception.setExceptionID(member.getID());
+            exception.setExceptionID(us.getID());
             throw exception;
         }
-        aList.add(member);
+        aList.add(us);
     }
 
-    private boolean contains(UserStory member) { //Prüft ob die Liste aList den übergebenen Member beinhaltet und gibt einen Boolean zurück
+    private boolean contains(UserStory us) { //Prüft ob die Liste aList den übergebenen Member beinhaltet und gibt einen Boolean zurück
         for(UserStory x : aList) {
-            if(member.getID().equals(x.getID())){
+            if(us.compareTo(x) == 1){
                 return true;
             }
         }
         return false;
     }
 
-    public String deleteMember(Integer id) {
+    public String deleteUserStory(Integer id) {
         /*
         Welche Nachteile ergeben sich aus ihrer Sicht für ein solchen Fehlerhandling gegenüber einer Lösung mit Exceptions? Kurzes Statement!
             Exception ermöglichen es uns Fehler und Abstürze im Programmablauf sicher zu behandeln. Exceptions werden weiter gegeben bis Sie von uns behandelt oder ausgegeben werden.
             In diesem Fall wird keine Exception(Fehlermeldung) erzeugt, sondern lediglich ein String zurückgegeben. Das heißt auch das das Programm weiter läuft obwohl möglicherweise
             ein Kritischer Fehler aufgetaucht ist.
          */
-        UserStory x = getMember(id);
+        UserStory x = getUserStory(id);
         if(x == null) {
             return "Member ist nicht in der Liste enthalten!";
         } else {
@@ -80,7 +80,7 @@ public class Container {
         }
     }
 
-    private UserStory getMember(Integer id) { //Gibt den Member mit der übergebenen ID zurück oder wenn er nicht vorhanden ist null.
+    private UserStory getUserStory(Integer id) { //Gibt den Member mit der übergebenen ID zurück oder wenn er nicht vorhanden ist null.
         for(UserStory x:aList) {
             if(id.equals(x.getID())){
                 return x;

@@ -23,8 +23,15 @@ public class UserStory implements Comparable<UserStory>, Serializable {
         this.prio = (mehrwert + strafe) / (aufwand + risiko);
     }
 
+    public int getID() {
+        return id;
+    }
+
     @Override
-    public int compareTo(UserStory o) {
+    public int compareTo(UserStory us) {
+        if(id == us.getID()) {
+            return 1;
+        }
         return 0;
     }
 }
