@@ -1,15 +1,17 @@
 package src.org.hbrs.se.ws20.uebung4.persistence;
 
+import src.org.hbrs.se.ws20.uebung4.control.UserStory;
+
 import java.io.*;
 import java.util.List;
 
-public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Member> {
+public class PersistenceStrategyStream<UserStory> implements PersistenceStrategy<UserStory> {
 
     FileOutputStream fos = null;
     ObjectOutputStream oos = null;
     FileInputStream fis = null;
     ObjectInputStream ois = null;
-    String LOCATION = "file.txt";
+    String LOCATION = "userStoryStore.txt";
 
     public void setLOCATION(String LOCATION) {
         this.LOCATION = LOCATION;
@@ -50,10 +52,11 @@ public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Me
     /*
      * Method for saving a list of Member-objects to a disk (HDD)
      */
-    public void save(List<Member> member) throws PersistenceException {
+    public void save(List<UserStory> us) throws PersistenceException {
         openConnection();
         try {
-            oos.writeObject(member);
+            oos.writeObject(us);
+            System.out.println("Es wurden die UserStories erfolgreich gespeichert. Anzahl: " + us.size());
         } catch (IOException e) {
             e.printStackTrace();
             throw new PersistenceException(PersistenceException.ExceptionType.SaveFailure, "Fehler beim speichern der Daten!");
@@ -67,12 +70,12 @@ public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Me
      * Method for loading a list of Member-objects from a disk (HDD)
      * Some coding examples come for free :-)
      */
-    public List<Member> load() throws PersistenceException {
+    public List<UserStory> load() throws PersistenceException {
         // Some Coding hints ;-)
         //ObjectInputStream ois = null;
         //FileInputStream fis = null;
 
-        List<Member> newListe =  null;
+        List<UserStory> newListe =  null;
 
         // Reading and extracting the list (try .. catch committed here)
         try {
@@ -85,6 +88,10 @@ public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Me
             if (obj instanceof List<?>) {
                 newListe = (List) obj;
             }
+            if(newListe == null) {
+                throw new PersistenceException(PersistenceException.ExceptionType.LoadFailure, "Der Storage ist leer, es konnten keine Objekte geladen werden!");
+            }
+            System.out.println("Die UserStories wurden erfolgreich geladen. Anzahl: " + newListe.size());
             return newListe;
         } catch (IOException e) {
             e.printStackTrace();

@@ -107,11 +107,21 @@ public class Container {
         pss.save(aList);
     }
 
-    public void load() throws PersistenceException {
+    public void load(boolean memoryType) throws PersistenceException {
         if (this.pss == null) {
             throw new PersistenceException(PersistenceException.ExceptionType.NoStrategyIsSet, "Strategy not initialized");
         }
         List<UserStory> liste = this.pss.load();
-        aList = liste;
+        if(memoryType) {
+            try {
+                for (UserStory us : liste) {
+                    this.addUserStory(us);
+                }
+            } catch (ContainerException e) {
+                System.out.println("Message: " + e.getMessage());
+            }
+        } else {
+            aList = liste;
+        }
     }
 }

@@ -12,15 +12,14 @@ public class UserStory implements Comparable<UserStory>, Serializable {
     private int risiko = 0;
     private double prio = 0.0;
 
-    public UserStory(int id, String name, int aufwand, int mehrwert, int strafe, int risiko) {
+    public UserStory(int id, String name, int aufwand, int mehrwert, int strafe, int risiko, double prio) {
         this.id = id;
         this.name = name;
         this.aufwand = aufwand;
         this.mehrwert = mehrwert;
         this.strafe = strafe;
         this.risiko = risiko;
-
-        this.prio = (mehrwert + strafe) / (aufwand + risiko);
+        this.prio = prio;
     }
 
     public int getID() {
