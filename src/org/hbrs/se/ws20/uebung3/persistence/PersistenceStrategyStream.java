@@ -56,6 +56,7 @@ public class PersistenceStrategyStream<Member> implements PersistenceStrategy<Me
             oos.writeObject(member);
         } catch (IOException e) {
             e.printStackTrace();
+            throw new PersistenceException(PersistenceException.ExceptionType.SaveFailure, "Fehler beim speichern der Daten!");
         } finally {
             closeConnection();
         }
