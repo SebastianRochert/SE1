@@ -56,7 +56,9 @@ public class PersistenceStrategyStream<UserStory> implements PersistenceStrategy
         openConnection();
         try {
             oos.writeObject(us);
-            System.out.println("Es wurden die UserStories erfolgreich gespeichert. Anzahl: " + us.size());
+            if(us.size() != 0) {
+                System.out.println("Es wurden die UserStories erfolgreich gespeichert. Anzahl: " + us.size());
+            }
         } catch (IOException e) {
             e.printStackTrace();
             throw new PersistenceException(PersistenceException.ExceptionType.SaveFailure, "Fehler beim speichern der Daten!");

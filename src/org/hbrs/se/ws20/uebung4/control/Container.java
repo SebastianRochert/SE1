@@ -4,6 +4,7 @@ import src.org.hbrs.se.ws20.uebung4.persistence.PersistenceException;
 import src.org.hbrs.se.ws20.uebung4.persistence.PersistenceStrategy;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Container {
@@ -49,7 +50,7 @@ public class Container {
          */
         if (contains(us)) {
             ContainerException exception = new ContainerException();
-            exception.setExceptionID(us.getID());
+            exception.setExceptionID(us.getId());
             throw exception;
         }
         aList.add(us);
@@ -57,7 +58,7 @@ public class Container {
 
     private boolean contains(UserStory us) { //Prüft ob die Liste aList den übergebenen Member beinhaltet und gibt einen Boolean zurück
         for(UserStory x : aList) {
-            if(us.compareTo(x) == 1){
+            if(us.getId() == x.getId()){
                 return true;
             }
         }
@@ -73,16 +74,16 @@ public class Container {
          */
         UserStory x = getUserStory(id);
         if(x == null) {
-            return "Member ist nicht in der Liste enthalten!";
+            return "User Story ist nicht in der Liste enthalten!";
         } else {
             aList.remove(x);
-            return "Der Member mit der ID: " + id + " wurde erfolgreich gelöscht!";
+            return "Die User Story mit der ID: " + id + " wurde erfolgreich gelöscht!";
         }
     }
 
     private UserStory getUserStory(Integer id) { //Gibt den Member mit der übergebenen ID zurück oder wenn er nicht vorhanden ist null.
         for(UserStory x:aList) {
-            if(id.equals(x.getID())){
+            if(id.equals(x.getId())){
                 return x;
             }
         }
@@ -118,10 +119,14 @@ public class Container {
                     this.addUserStory(us);
                 }
             } catch (ContainerException e) {
-                System.out.println("Message: " + e.getMessage());
+                e.printStackTrace();
             }
         } else {
             aList = liste;
         }
+    }
+
+    public void sortCointainer() {
+        Collections.sort(aList); //Sortierung nach Prio
     }
 }
