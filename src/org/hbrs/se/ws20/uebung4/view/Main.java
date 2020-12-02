@@ -4,7 +4,7 @@ import src.org.hbrs.se.ws20.uebung4.control.Eingabedialog;
 
 public class Main {
     public static void main (String[] args) {
-        Eingabedialog ed = new Eingabedialog();
-        ed.beginnEingabe();
+        Eingabedialog eingabedialog = new Eingabedialog();
+        eingabedialog.beginnEingabe();
     }
 }

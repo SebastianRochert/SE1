@@ -65,7 +65,7 @@ public class Container {
         return false;
     }
 
-    public String deleteUserStory(Integer id) {
+    public void deleteUserStory(int id) throws ContainerException {
         /*
         Welche Nachteile ergeben sich aus ihrer Sicht für ein solchen Fehlerhandling gegenüber einer Lösung mit Exceptions? Kurzes Statement!
             Exception ermöglichen es uns Fehler und Abstürze im Programmablauf sicher zu behandeln. Exceptions werden weiter gegeben bis Sie von uns behandelt oder ausgegeben werden.
@@ -74,10 +74,9 @@ public class Container {
          */
         UserStory x = getUserStory(id);
         if(x == null) {
-            return "User Story ist nicht in der Liste enthalten!";
+            throw new ContainerException();
         } else {
             aList.remove(x);
-            return "Die User Story mit der ID: " + id + " wurde erfolgreich gelöscht!";
         }
     }
 

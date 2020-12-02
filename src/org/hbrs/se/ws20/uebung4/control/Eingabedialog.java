@@ -20,6 +20,8 @@ public class Eingabedialog {
         PersistenceStrategy<UserStory> usPSS = new PersistenceStrategyStream<UserStory>();
         con.setPss(usPSS);
 
+        ExtendedBufferedReader ebr = new ExtendedBufferedReader();
+
         System.out.println("Wilkommen zum User Story Speichererungs Programm!");
 
         while (status) {
@@ -36,17 +38,16 @@ public class Eingabedialog {
             switch (arrayEingaben[0].toLowerCase()) {
                 case "help":
                     System.out.println("Folgende Befehle können verwendet werden:\n" +
-                            "enter \t(zum hinzufügen einer User Story) \n" +
-                            "store \t(speichern aller User Stories aus dem RAM auf externen HDD\n" +
+                            "enter \t   (zum hinzufügen einer User Story zum RAM) \n" +
+                            "store \t   (speichern aller User Stories aus dem RAM auf externen HDD\n" +
                             "load [merge, force] (laden aller extern gespeichertern User Stories in den RAM. [Force überschreiben des RAM], [merge hinzufügen zum RAM])\n" +
-                            "dump \t(Konsolenausgabe aller User Stories aus dem RAM)\n" +
-                            "clear \t(Löscht alle User Stories aus dem Storage)\n" +
-                            "exit \t(Beendet das Programm)\n" +
-                            "help \t(Anzeige aller möglichen Befehle)\n");
+                            "dump \t    (Konsolenausgabe aller User Stories aus dem RAM)\n" +
+                            "clear \t   (Löscht alle User Stories aus dem Storage)\n" +
+                            "delete \t  (Löscht eine User Story aus dem RAM mit einer bestimmten ID\n" +
+                            "exit \t    (Beendet das Programm)\n" +
+                            "help \t    (Zeigt alle möglichen Befehle an)\n");
                     break;
                 case "enter":
-                    ExtendedBufferedReader ebr = new ExtendedBufferedReader();
-
                     System.out.println("Bitte geben Sie die Informationen der UserStory an:");
 
                     int id = ebr.readLineInt("Bitte geben Sie die ID der User Story an: ");
@@ -121,9 +122,17 @@ public class Eingabedialog {
                     System.out.println();
                     con.getCurrentList().stream().forEach(userStory -> System.out.println(userStory.toString())); //Reduce
 
+                    if(arrayEingaben[1].equals("aufwand")) {
+                        int a = Integer.parseInt(arrayEingaben[2]);
+
+                        //Full Filter Map Reduce Pattern:
+                        con.getCurrentList().stream()
+                                .filter(item -> item.getAufwand() > a)      //Filter
+                                .forEach(userStory -> System.out.println(userStory.toString())); //Reduce (forEach)
+                    }
                     //Full Filter Map Reduce Pattern:
 //                    con.getCurrentList().stream()
-//                            .filter(item -> item.getAufwand() > 1)      //Filter
+//                            .filter(item -> item.getAufwand() > 3)      //Filter
 //                            .map(item -> item.getName())                //Map
 //                            .forEach(item -> System.out.println(item)); //Reduce (forEach)
                     break;
@@ -136,6 +145,16 @@ public class Eingabedialog {
                     }
                     System.out.println("Der Storage wurde erfolgreich geleert!");
                     break;
+                case "delete":
+                    int idToDel = ebr.readLineInt("Bitte geben Sie die ID der User Story an die gelöscht werden soll: ");
+                    try {
+                        con.deleteUserStory(idToDel);
+                    } catch (ContainerException e) {
+                        System.out.println("Die User Story mit der id " + idToDel + " ist nicht im Container enthalten!");
+                        break;
+                    }
+                    System.out.println("Die User Story mit der ID: " + idToDel + " wurde erfolgreich gelöscht!");
+                    break;
                 case "exit":
                     System.out.println("Das Programm wird beendet!");
                     status = false;
@@ -145,7 +164,9 @@ public class Eingabedialog {
     }
 
     public boolean isFib(int aufwand) {
-        int[] fib = {1,2,3,5,8,13,21,34,55,89,144,233,377,610};
+//        Fibonacci Mathematisch
+//        int[] fib = {1,2,3,5,8,13,21,34,55,89,144};
+        int[] fib = {1,2,3,5,8,13,20,40,100};
         for(int x : fib) {
             if(aufwand == x) {
                 return true;
@@ -154,7 +175,7 @@ public class Eingabedialog {
         return false;
     }
 
-    //IsFib Alternative
+//    IsFib Alternative
 //    public boolean isFib(int i) {
 //        int firstTerm = 0;
 //        int secondTerm = 1;
