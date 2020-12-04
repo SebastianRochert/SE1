@@ -1,4 +1,4 @@
-package src.org.hbrs.se.ws20.uebung4.control;
+package src.org.hbrs.se.ws20.uebung4.model;
 
 import java.io.BufferedReader;
 import java.io.IOException;

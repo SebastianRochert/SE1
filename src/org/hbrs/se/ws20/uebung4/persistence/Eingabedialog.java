@@ -1,32 +1,32 @@
-package src.org.hbrs.se.ws20.uebung4.control;
+package src.org.hbrs.se.ws20.uebung4.persistence;
 
-import src.org.hbrs.se.ws20.uebung4.persistence.PersistenceException;
-import src.org.hbrs.se.ws20.uebung4.persistence.PersistenceStrategy;
-import src.org.hbrs.se.ws20.uebung4.persistence.PersistenceStrategyStream;
+import src.org.hbrs.se.ws20.uebung4.model.Container;
+import src.org.hbrs.se.ws20.uebung4.model.ContainerException;
+import src.org.hbrs.se.ws20.uebung4.model.ExtendedBufferedReader;
+import src.org.hbrs.se.ws20.uebung4.model.UserStory;
+import src.org.hbrs.se.ws20.uebung4.model.PersistenceException;
+import src.org.hbrs.se.ws20.uebung4.view.Ausgabedialog;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class Eingabedialog {
 
-    public void beginnEingabe() {
+    public void beginnEingabe(Container container) {
         String input = null;
         //System in ist die eingabe über die Tastatur
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         boolean status = true;
 
-        Container con = Container.getInstance();
-        PersistenceStrategy<UserStory> usPSS = new PersistenceStrategyStream<UserStory>();
-        con.setPss(usPSS);
+        Container con = container;
 
         ExtendedBufferedReader ebr = new ExtendedBufferedReader();
 
         System.out.println("Wilkommen zum User Story Speichererungs Programm!");
 
         while (status) {
+            System.out.print("Ihre Eingabe: ");
             try {
-                System.out.print("Ihre Eingabe: ");
                 input = reader.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -38,14 +38,13 @@ public class Eingabedialog {
             switch (arrayEingaben[0].toLowerCase()) {
                 case "help":
                     System.out.println("Folgende Befehle können verwendet werden:\n" +
-                            "enter \t   (zum hinzufügen einer User Story zum RAM) \n" +
-                            "store \t   (speichern aller User Stories aus dem RAM auf externen HDD\n" +
+                            "enter \t(zum hinzufügen einer User Story zum RAM) \n" +
+                            "store \t(speichern aller User Stories aus dem RAM auf externen HDD\n" +
                             "load [merge, force] (laden aller extern gespeichertern User Stories in den RAM. [Force überschreiben des RAM], [merge hinzufügen zum RAM])\n" +
-                            "dump \t    (Konsolenausgabe aller User Stories aus dem RAM)\n" +
-                            "clear \t   (Löscht alle User Stories aus dem Storage)\n" +
-                            "delete \t  (Löscht eine User Story aus dem RAM mit einer bestimmten ID\n" +
-                            "exit \t    (Beendet das Programm)\n" +
-                            "help \t    (Zeigt alle möglichen Befehle an)\n");
+                            "dump \t(Konsolenausgabe aller User Stories aus dem RAM)\n" +
+                            "delete \t(Löscht eine User Story mit einer bestimmten ID aus dem RAM\n" +
+                            "exit \t(Beendet das Programm)\n" +
+                            "help \t(Zeigt alle möglichen Befehle an)\n");
                     break;
                 case "enter":
                     System.out.println("Bitte geben Sie die Informationen der UserStory an:");
@@ -113,37 +112,22 @@ public class Eingabedialog {
                     System.out.println("Es wurde kein gültiger Parameter für den Befehl übergeben! Gültige Parameter: [merge, force]");
                     break;
                 case "dump":
+                    Ausgabedialog ad = new Ausgabedialog();
+
                     if(con.getCurrentList().isEmpty()) {
                         System.out.println("Es sind keine UserStories vorhanden die ausgegeben werden könnten!");
                         break;
                     }
                     con.sortCointainer();
 
-                    System.out.println();
-                    con.getCurrentList().stream().forEach(userStory -> System.out.println(userStory.toString())); //Reduce
-
-                    if(arrayEingaben[1].equals("aufwand")) {
+                    if(arrayEingaben.length == 1) {
+                        ad.dump(con);
+                        break;
+                    } else if(arrayEingaben[1].equals("aufwand")) {
                         int a = Integer.parseInt(arrayEingaben[2]);
-
-                        //Full Filter Map Reduce Pattern:
-                        con.getCurrentList().stream()
-                                .filter(item -> item.getAufwand() > a)      //Filter
-                                .forEach(userStory -> System.out.println(userStory.toString())); //Reduce (forEach)
-                    }
-                    //Full Filter Map Reduce Pattern:
-//                    con.getCurrentList().stream()
-//                            .filter(item -> item.getAufwand() > 3)      //Filter
-//                            .map(item -> item.getName())                //Map
-//                            .forEach(item -> System.out.println(item)); //Reduce (forEach)
-                    break;
-                case "clear":
-                    try {
-                        usPSS.save(new ArrayList<UserStory>());
-                    } catch (PersistenceException e) {
-                        e.printStackTrace();
+                        ad.dumpAufwand(con, a);
                         break;
                     }
-                    System.out.println("Der Storage wurde erfolgreich geleert!");
                     break;
                 case "delete":
                     int idToDel = ebr.readLineInt("Bitte geben Sie die ID der User Story an die gelöscht werden soll: ");
@@ -158,6 +142,9 @@ public class Eingabedialog {
                 case "exit":
                     System.out.println("Das Programm wird beendet!");
                     status = false;
+                    break;
+                default:
+                    System.out.println("Es wurde kein Gültiger Befehl eingegeben! Alle Gültigen Befehle sehen Sie wenn Sie den Befehl 'help' eingeben.");
                     break;
             }
         }

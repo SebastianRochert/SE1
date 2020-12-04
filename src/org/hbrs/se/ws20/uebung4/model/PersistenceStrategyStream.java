@@ -1,6 +1,4 @@
-package src.org.hbrs.se.ws20.uebung4.persistence;
-
-import src.org.hbrs.se.ws20.uebung4.control.UserStory;
+package src.org.hbrs.se.ws20.uebung4.model;
 
 import java.io.*;
 import java.util.List;
