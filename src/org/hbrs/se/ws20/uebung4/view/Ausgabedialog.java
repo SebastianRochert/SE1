@@ -5,7 +5,7 @@ import src.org.hbrs.se.ws20.uebung4.model.Container;
 public class Ausgabedialog {
     public void dump(Container con) {
         System.out.println();
-        con.getCurrentList().stream().forEach(userStory -> System.out.println(userStory.toString()));
+        con.getCurrentList().forEach(userStory -> System.out.println(userStory.toString()));
     }
 
     public void dumpAufwand(Container con, int a) {

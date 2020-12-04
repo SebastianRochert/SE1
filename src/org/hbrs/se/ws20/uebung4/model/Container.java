@@ -1,5 +1,8 @@
 package src.org.hbrs.se.ws20.uebung4.model;
 
+import src.org.hbrs.se.ws20.uebung4.model.persistence.PersistenceException;
+import src.org.hbrs.se.ws20.uebung4.model.persistence.PersistenceStrategy;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

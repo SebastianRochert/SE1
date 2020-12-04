@@ -1,24 +1,22 @@
-package src.org.hbrs.se.ws20.uebung4.persistence;
+package src.org.hbrs.se.ws20.uebung4.controller;
 
 import src.org.hbrs.se.ws20.uebung4.model.Container;
 import src.org.hbrs.se.ws20.uebung4.model.ContainerException;
 import src.org.hbrs.se.ws20.uebung4.model.ExtendedBufferedReader;
 import src.org.hbrs.se.ws20.uebung4.model.UserStory;
-import src.org.hbrs.se.ws20.uebung4.model.PersistenceException;
+import src.org.hbrs.se.ws20.uebung4.model.persistence.PersistenceException;
 import src.org.hbrs.se.ws20.uebung4.view.Ausgabedialog;
 
 import java.io.*;
 
 public class Eingabedialog {
 
-    public void beginnEingabe(Container container) {
+    public void beginnEingabe(Container con) {
         String input = null;
-        //System in ist die eingabe über die Tastatur
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); //System in ist die eingabe über die Tastatur
 
         boolean status = true;
-
-        Container con = container;
 
         ExtendedBufferedReader ebr = new ExtendedBufferedReader();
 
