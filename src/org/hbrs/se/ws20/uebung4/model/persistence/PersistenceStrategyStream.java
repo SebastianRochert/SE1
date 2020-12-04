@@ -1,4 +1,4 @@
-package src.org.hbrs.se.ws20.uebung4.model;
+package src.org.hbrs.se.ws20.uebung4.model.persistence;
 
 import java.io.*;
 import java.util.List;
