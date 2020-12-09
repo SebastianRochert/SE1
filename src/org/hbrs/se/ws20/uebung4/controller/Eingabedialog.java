@@ -78,14 +78,6 @@ public class Eingabedialog {
                     }
                     System.out.println("Die UserStory wurde erfolgreich hinzugefügt!");
                     break;
-                case "store":
-                    try {
-                        con.store();
-                    } catch (PersistenceException e) {
-                        e.printStackTrace();
-                        System.out.println("Message: " + e.getMessage());
-                    }
-                    break;
                 case "load":
                     if (arrayEingaben.length == 1) {
                         System.out.println("Es wurde kein Parameter für den Befehl übergeben! Mögliche Parameter: [merge, force]");
@@ -95,6 +87,7 @@ public class Eingabedialog {
                             con.load(true);
                             System.out.println("MemoryType of load: merge");
                         } catch (PersistenceException e) {
+                            System.out.println("Message: " + e.getMessage());
                             e.printStackTrace();
                         }
                         break;
@@ -103,11 +96,20 @@ public class Eingabedialog {
                             con.load(false);
                             System.out.println("MemoryType of load: force");
                         } catch (PersistenceException e) {
+                            System.out.println("Message: " + e.getMessage());
                             e.printStackTrace();
                         }
                         break;
-                   }
+                    }
                     System.out.println("Es wurde kein gültiger Parameter für den Befehl übergeben! Gültige Parameter: [merge, force]");
+                    break;
+                case "store":
+                    try {
+                        con.store();
+                    } catch (PersistenceException e) {
+                        e.printStackTrace();
+                        System.out.println("Message: " + e.getMessage());
+                    }
                     break;
                 case "dump":
                     Ausgabedialog ad = new Ausgabedialog();
